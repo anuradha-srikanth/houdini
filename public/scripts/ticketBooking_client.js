@@ -147,25 +147,36 @@ var onClickSeat = function () {
              }
          }
 
-         // $(document).ready(function () {
-         //     /* Dummy Object Argument is for IE Bug fix. */
-         //     $.getJSON('/seats', { dummy: new Date().getTime() }, function (data) {
-         //         rows = data.length;
-         //         cols = data[0].length;
-         //         $.each(data, function (indexY, line) {
-         //          var $line = $('<div></div>').addClass('line');
-         //          $.each(line, function (indexX, seat) {
-         //              var output = $('<div></div>', {
-         //                  'class': 'seat',
-         //                  'data-x': indexX,
-         //                  'data-y': indexY
-         //              }).appendTo($line);
-         //              if (seat == 1)
-         //                  output.addClass('enable').on('click', onClickSeat);
-         //              else if (seat == 2)
-         //                  output.addClass('disable');
-         //          });
-         //          $line.appendTo('body');
-         //      }); 
-         //     });
-         // });
+         socket.on('receive seats init', function(data){
+            // seats = data.seats
+            seats = data
+            rows = seats.length;
+            cols = seats[0].length;
+            $.each(seats, function (indexY, line) {
+              var $line = $('<div></div>').addClass('line');
+              $.each(line, function (indexX, seat) {
+                  var output = $('<div></div>', {
+                      'class': 'seat',
+                      'data-x': indexX,
+                      'data-y': indexY
+                  }).appendTo($line);
+                  if (seat == 1)
+                      output.addClass('enable').on('click', onClickSeat);
+                  else if (seat == 2)
+                      output.addClass('disable');
+              });
+              $line.appendTo('body');
+          }); 
+
+        });
+
+             // /* Dummy Object Argument is for IE Bug fix. */
+             // $.getJSON('/seats', { dummy: new Date().getTime() }, function (data) {
+
+             // });
+
+             $(document).ready(function () {
+
+                socket.emit('get seats init', function(){});
+
+            });

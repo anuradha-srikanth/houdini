@@ -16,7 +16,7 @@ exports.init = function(io) {
   [1,1,0,1,1,1,1,1,1,1,1,0,1,1]
   ];
 
-  //   var currentClients = 0; // keep track of the number of players
+    var currentClients = 0; // keep track of the number of players
   //   // var time = 0;
   //   var time = 0;
   //   var username = "";
@@ -149,6 +149,17 @@ exports.init = function(io) {
 // /* Attach Socket.io to server. */
 // var io = sio.listen(server);
 io.sockets.on('connection', function (socket) {
+  // Arbitrary two rooms to test, will add login conditions later
+  roomId = currentClients % 2
+  // socket.join('some room');
+
+  ++currentClients;
+  console.log("Current users: "+currentClients)
+
+  socket.on('disconnect', function () {
+    --currentClients;
+    console.log("Current users: "+currentClients)
+  });
 
   /* Reserve Seat only if not already occupied. */
   socket.on('reserve', function (data) {
@@ -157,6 +168,10 @@ io.sockets.on('connection', function (socket) {
       io.sockets.emit('seat_update', data, socket.id);
     }
   });
+
+  socket.on('get seats init', function(){
+    socket.emit('receive seats init', seats);
+  })
 
 //  socket.on('reserveBatch', function (data) {
 //      var checked = true;
