@@ -6,8 +6,10 @@ $(function(){
         let lastname = $("#addUser #lname").val();
         let username = $("#addUser #username").val();
         let status = $("#addUser #status").val();
+        let password = $("#addUser #password").val();
+        let pwd_conf = $("#addUser #pwd_conf").val();
         $.ajax({
-            url: url+ `/${firstname}/${lastname}/${username}/${status}`,
+            url: url+ `/${firstname}/${lastname}/${username}/${status}/${password}/${pwd_conf}`,
             type: 'PUT',
             success: function(result) {
               // Do something with the result

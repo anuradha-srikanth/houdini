@@ -4,7 +4,7 @@ var Schema = mongoose.Schema,
 ObjectId = Schema.ObjectId;
 
 var User = new Schema({
-  user_id    : ObjectId,
+  user_id : ObjectId,
   name: {
     first: {
       type: String,
@@ -29,13 +29,13 @@ var User = new Schema({
   },
   status: {
     type: String
-  },
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-    trim: true
-  },
+  }
+  // email: {
+  //   type: String,
+  //   unique: true,
+  //   required: true,
+  //   trim: true
+  // }
 });
 
 var UserModel = mongoose.model('User', User);

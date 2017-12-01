@@ -32,6 +32,7 @@ var users = require('./routes/user.js')
 // app.use('/users', users);
 
 
+
 // Express Session
 app.use(session({ 
     secret: 'mySecretKey',
@@ -73,7 +74,8 @@ var db = mongoose.connection;
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', function (callback) {
-    generalRoutes.init(app, passport);
+    // generalRoutes.init(app, passport);
+    users.init(app);
     // require('./routes/user.js').init(app);
 });
 

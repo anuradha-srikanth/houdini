@@ -1,7 +1,7 @@
 var UserModel = require('../models/users');
 
 exports.init = function(app) {
-    app.put("/users/:firstname/:lastname/:username/:status", addUser)
+    app.put("/users/:firstname/:lastname/:username/:status/:password/:password_confirmation", addUser)
 
     app.get("/users/:firstname/:lastname", getUser);
 
@@ -13,15 +13,20 @@ exports.init = function(app) {
 }
 
 var addUser = function(request, response){
+    // console.log(response)
     const firstname = request.params.firstname;
     const lastname = request.params.lastname;
     const username = request.params.username;
+    const password = request.params.password;
+    const pwd_conf = request.params.password_confirmation;
     const status = request.params.status;
     var instance = new UserModel();
     instance.username = username;
     instance.name.first = firstname;
     instance.name.last = lastname;
     instance.status = status;
+    instance.password = password;
+    instance.password_confirmation = pwd_conf;
     instance.save(function (err) {
       if(err) return handleError(err);
       response.render('addUser',{
