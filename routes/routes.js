@@ -18,7 +18,23 @@ exports.init = function(app, passport) {
     });
 
     // process the login form
-    // app.post('/login', do all our passport stuff here);
+    app.post('/login', 
+        passport.authenticate('local', { 
+            successRedirect: '/',
+            failureRedirect: '/login', 
+            failureFlash: "Invalid username or password" ,
+            successFlash: "Welcome!"
+        }));
+
+//     var authenticate = function(request, response){
+//         console.log('hello')
+//         passport.authenticate('local', { 
+//             successRedirect: '/',
+//             failureRedirect: '/login', 
+//             failureFlash: "Invalid username or password" ,
+//             successFlash: "Welcome!"});
+//     // res.redirect('/users/' + req.user.username);
+// }
 
     // =====================================
     // SIGNUP ==============================

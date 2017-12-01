@@ -25,11 +25,11 @@ app.use(express.static(__dirname + '/public'));
 
 // Other routes
 var generalRoutes = require('./routes/routes.js')
-var users = require('./routes/users.js')
+var users = require('./routes/user.js')
 
 // Route from main
-app.use('/login', generalRoutes)
-app.use('/users', users);
+// app.use('/login', generalRoutes)
+// app.use('/users', users);
 
 
 // Express Session
@@ -37,29 +37,32 @@ app.use(session({
     secret: 'mySecretKey',
     saveUninitialized: true,
     resave: true }));
+
 //Connect flash
 app.use(flash());
 
+//Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
 // app.use(session({ secret: 'mySecretKey' })); // session secret
-// app.use(passport.initialize());
-// app.use(passport.session()); // persistent login sessions
 // app.use(flash()); // use connect-flash for flash messages stored in session
 
 
-// passport.use(new LocalStrategy(
-//   function(username, password, done) {
-//     User.findOne({ username: username }, function(err, user) {
-//       if (err) { return done(err); }
-//       if (!user) {
-//         return done(null, false, { message: 'Incorrect username.' });
-//     }
-//     if (!user.validPassword(password)) {
-//         return done(null, false, { message: 'Incorrect password.' });
-//     }
-//     return done(null, user);
-// });
-// }
-// ));
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function(err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+    }
+    if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+    }
+    return done(null, user);
+});
+}
+));
 
 //Connect the database
 mongoose.connect(mongoDB, {
