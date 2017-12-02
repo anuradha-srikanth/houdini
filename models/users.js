@@ -3,6 +3,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema,
 ObjectId = Schema.ObjectId;
 
+var passportLocalMongoose = require('passport-local-mongoose');
+
 var User = new Schema({
   user_id : ObjectId,
   name: {
@@ -38,6 +40,11 @@ var User = new Schema({
   // }
 });
 
-var UserModel = mongoose.model('User', User);
-module.exports = UserModel;
+User.methods.validPassword = function( pwd ) {
+    // EXAMPLE CODE!
+    return ( this.password === pwd );
+};
+
+User.plugin(passportLocalMongoose);
+module.exports = mongoose.model('User', User);
 

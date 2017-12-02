@@ -7,6 +7,8 @@ var mongoose = require('mongoose');
 var mongoDB = 'mongodb://asrikant:nodeproject@ds259305.mlab.com:59305/dist';
 var fs   = require("fs");
 var log = console.log.bind(this);
+var cookieParser = require('cookie-parser')
+var bodyParser = require('body-parser')
 
 var passport = require('passport');
 var session = require('express-session');
@@ -31,13 +33,14 @@ var users = require('./routes/user.js')
 // app.use('/login', generalRoutes)
 // app.use('/users', users);
 
-
+app.use(cookieParser());
+app.use(bodyParser());
 
 // Express Session
 app.use(session({ 
     secret: 'mySecretKey',
-    saveUninitialized: true,
-    resave: true }));
+    saveUninitialized: false,
+    resave: false }));
 
 //Connect flash
 app.use(flash());
@@ -46,13 +49,15 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
+
 // app.use(session({ secret: 'mySecretKey' })); // session secret
 // app.use(flash()); // use connect-flash for flash messages stored in session
 
-
+var User = require('./models/users');
 passport.use(new LocalStrategy(
   function(username, password, done) {
     User.findOne({ username: username }, function(err, user) {
+        console.log(user);
       if (err) { return done(err); }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
@@ -65,6 +70,22 @@ passport.use(new LocalStrategy(
 }
 ));
 
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
+
+
+
 //Connect the database
 mongoose.connect(mongoDB, {
   useMongoClient: true
@@ -74,11 +95,18 @@ var db = mongoose.connection;
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', function (callback) {
-    // generalRoutes.init(app, passport);
+    generalRoutes.init(app, passport);
     users.init(app);
     // require('./routes/user.js').init(app);
 });
 
+
+// catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//     var err = new Error('Not Found');
+//     err.status = 404;
+//     next(err);
+// });
 
 
 
@@ -111,7 +139,7 @@ var ticketBookingSockets = require('./routes/ticketBooking_server.js');
 ticketBookingSockets.init(io);
 
 
-
+module.exports = app;
 
 
 

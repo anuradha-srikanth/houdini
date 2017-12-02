@@ -1,4 +1,4 @@
-var UserModel = require('../models/users');
+var User = require('../models/users');
 
 exports.init = function(app) {
     app.put("/users/:firstname/:lastname/:username/:status/:password/:password_confirmation", addUser)
@@ -20,7 +20,7 @@ var addUser = function(request, response){
     const password = request.params.password;
     const pwd_conf = request.params.password_confirmation;
     const status = request.params.status;
-    var instance = new UserModel();
+    var instance = new User();
     instance.username = username;
     instance.name.first = firstname;
     instance.name.last = lastname;
@@ -42,7 +42,7 @@ var getUser = function(request, response){
     const firstname = request.query.firstname;
     const lastname = request.query.lastname;
 
-    UserModel.findOne({
+    User.findOne({
         'name.first' : firstname,
         'name.last'  : lastname
 
@@ -66,7 +66,7 @@ var getUser = function(request, response){
 var deleteUser = function(request, response){
     const firstname = request.params.firstname;
     const lastname = request.params.lastname;
-    UserModel.remove({ 
+    User.remove({ 
         'name.first' : firstname,
         'name.last'  : lastname 
     }, 
@@ -88,7 +88,7 @@ var updateUser = function(request, response){
     const lastname = request.params.lastname;
     const username = request.params.username;
     const status = request.params.status;
-    UserModel.findOneAndUpdate({
+    User.findOneAndUpdate({
         'name.first' : firstname,
         'name.last'  : lastname
 
