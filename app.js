@@ -39,7 +39,7 @@ app.use(bodyParser());
 // Express Session
 app.use(session({ 
     secret: 'mySecretKey',
-    saveUninitialized: false,
+    saveUninitialized: true,
     resave: false }));
 
 //Connect flash
@@ -101,31 +101,13 @@ db.once('open', function (callback) {
 });
 
 
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//     var err = new Error('Not Found');
-//     err.status = 404;
-//     next(err);
-// });
-
-
-
-    // =====================================
-    // LOGIN ===============================
-    // =====================================
-    // show the login form
-    // app.get('/login', function(req, res) {
-
-    //     // render the page and pass in any flash data if it exists
-    //     res.render('login.ejs', { message: req.flash('loginMessage') }); 
-    // });
-
 // Main Page Access.
 app.get("/movie", function (req, res) {
-    fs.readFile('public/movie.html', function (error, data) {
-        if (error) log("Error:", error);
-        else       res.send(data.toString());
-    });
+    res.render('movie.ejs', {username: req.user.username});
+    // fs.readFile('public/movie.html', function (error, data) {
+    //     if (error) log("Error:", error);
+    //     else       res.send(data.toString());
+    // });
 });
 
 /*1*/ var httpServer = http.Server(app);

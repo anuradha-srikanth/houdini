@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
-
 var Schema = mongoose.Schema,
 ObjectId = Schema.ObjectId;
+
+var Ticket = require('../models/tickets');
 
 var passportLocalMongoose = require('passport-local-mongoose');
 
@@ -31,13 +32,11 @@ var User = new Schema({
   },
   status: {
     type: String
-  }
-  // email: {
-  //   type: String,
-  //   unique: true,
-  //   required: true,
-  //   trim: true
-  // }
+  },
+  tickets: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Ticket'
+  }]
 });
 
 User.methods.validPassword = function( pwd ) {
@@ -45,6 +44,9 @@ User.methods.validPassword = function( pwd ) {
     return ( this.password === pwd );
 };
 
+User.methods.getTickets = function(){
+  return this.tickets
+}
 User.plugin(passportLocalMongoose);
 module.exports = mongoose.model('User', User);
 

@@ -17,23 +17,23 @@ exports.init = function(app, passport) {
     });
 
 
-    app.post('/login',
-      passport.authenticate('local'),
-      function(req, res) {
-        // If this function gets called, authentication was successful.
-        // `req.user` contains the authenticated user.
-        console.log("signed in");
-        res.redirect('/users/' + req.user.username);
-    });
+    // app.post('/login',
+    //   passport.authenticate('local'),
+    //   function(req, res) {
+    //     // If this function gets called, authentication was successful.
+    //     // `req.user` contains the authenticated user.
+    //     console.log("signed in");
+    //     res.redirect('/users/' + req.user.username);
+    // });
 
     // process the login form
-    // app.post('/login', 
-    //     passport.authenticate('local', { 
-    //         successRedirect: '/',
-    //         failureRedirect: '/login', 
-    //         failureFlash: "Invalid username or password" ,
-    //         successFlash: "Welcome!"
-    //     }));
+    app.post('/login', 
+        passport.authenticate('local', { 
+            successRedirect: '/',
+            failureRedirect: '/login', 
+            failureFlash: "Invalid username or password" ,
+            successFlash: "Welcome!"
+        }));
 
 //     var authenticate = function(request, response){
 //         console.log('hello')
