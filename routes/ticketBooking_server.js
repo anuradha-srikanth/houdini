@@ -80,6 +80,7 @@ exports.init = function(io) {
 
     /* Reserve Seat only if not already occupied. */
     socket.on('reserve', function (data) {
+      console.log('reserve received');
       if (tickets[data.y][data.x].state != 'Occupied'){
         tickets[data.y][data.x].state = 'Occupied';
         // io.sockets.emit('seat_update', data, socket.id);
@@ -93,7 +94,8 @@ exports.init = function(io) {
     // seat update emit this with s with objects
 
     socket.on('get seats init', function(){
-      socket.username = username;
+      // socket.username = username;
+      console.log('get seats init received');
       socket.emit('receive seats init', seats);
     })
 

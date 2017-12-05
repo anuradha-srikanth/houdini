@@ -110,6 +110,10 @@ app.get("/movie", function (req, res) {
     // });
 });
 
+app.get("/username", function (req, res) {
+  res.send(req.user);
+});
+
 /*1*/ var httpServer = http.Server(app);
 /*2*/ var sio =require('socket.io');
 /*3*/ var io = sio(httpServer);

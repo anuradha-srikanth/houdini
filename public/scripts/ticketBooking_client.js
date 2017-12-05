@@ -89,9 +89,11 @@ socket.on('receive seats init', function(data){
 });
 
 $(document).ready(function () {
-
-  socket.emit('get seats init', { 
-    // username: req.user.local.username
+  $.getJSON('/username', function (data) {
+    console.log(data);
+    socket.emit('get seats init', { 
+      username: data.username
+    });
   });
 
 });
