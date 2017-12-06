@@ -136,6 +136,9 @@ exports.init = function(io) {
           console.log(tickets[i][j].owner);}
           if(tickets[i][j] && tickets[i][j].owner == data.username){
             tickets[i][j].state = 'Reserved';
+            tickets[i][j].save(function(err){
+              if (err) { return err;}
+            })
             // seats[i][j] = 
             console.log('buy tickets called');
             socket.emit('block seat map', {

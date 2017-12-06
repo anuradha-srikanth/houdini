@@ -19,10 +19,12 @@ var User = new Schema({
     }
   },
   password: {
-    type: String
+    type: String,
+    required: true
   },
   password_confirmation: {
-    type: String
+    type: String,
+    required: true
   },
   username: {
     type: String,
