@@ -1,0 +1,39 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Movie Theater</title>
+<style>
+    .line { overflow: hidden; }
+    .seat {
+    margin: 2px;
+    float: left;
+    width: 30px;
+    height: 30px;
+    border-radius: 3px;
+    }
+    .enable { background: grey; }
+    .enable:hover { background: black; }
+    .disable { background: red; }
+    .reserve { background: black; }
+    .myReserved { background: pink; }
+    .mySeat { background: green; }
+    .mySeat:hover { background: brown; }
+</style>
+
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+
+<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+<script
+src="https://code.jquery.com/jquery-3.1.1.min.js"
+integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+crossorigin="anonymous"></script>
+<script src="semantic/dist/semantic.min.js"></script>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="./scripts/ticketBooking_client.js"></script>
+
+</head>
