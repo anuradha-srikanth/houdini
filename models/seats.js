@@ -11,10 +11,12 @@ var Seat = new Schema({
   seat_id : ObjectId,
   state : {
     type: String,
-    enum: ['No Seat', 'Empty', 'Occupied']
+    enum: ['No Seat', 'Empty', 'Occupied', 'Reserved']
   },
   price : Number,
   owner : String,
+  rows : Number,
+  cols : Number,
   ticket : { type: Schema.Types.ObjectId, ref: 'Ticket'}
 });
 

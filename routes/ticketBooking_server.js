@@ -13,6 +13,8 @@ exports.init = function(io) {
       var singleSeat = new Seat()
       singleSeat.state = 'Empty';
       singleSeat.price = 50;
+      singleSeat.row = i;
+      singleSeat.column = j;
       r.push(singleSeat);
       s.push(1);
     }
@@ -25,6 +27,8 @@ exports.init = function(io) {
         var singleSeat = new Seat()
         singleSeat.state = 'Empty';
         singleSeat.price = 50;
+        singleSeat.row = i;
+        singleSeat.column = j;
         r.push(singleSeat);
         s.push(1);
       }
@@ -34,6 +38,8 @@ exports.init = function(io) {
         var singleSeat = new Seat()
         singleSeat.state = 'Empty';
         singleSeat.price = 50;
+        singleSeat.row = i;
+        singleSeat.column = j;
         r.push(singleSeat);
         s.push(1);
 
@@ -46,6 +52,8 @@ exports.init = function(io) {
         var singleSeat = new Seat()
         singleSeat.state = 'Empty';
         singleSeat.price = 50;
+        singleSeat.row = i;
+        singleSeat.column = j;
         r.push(singleSeat);
         s.push(1);
       }
@@ -58,6 +66,8 @@ exports.init = function(io) {
       var singleSeat = new Seat()
       singleSeat.state = 'Empty';
       singleSeat.price = 50;
+      singleSeat.row = i;
+      singleSeat.column = j;
       r.push(singleSeat);
       s.push(1);
     }
@@ -83,19 +93,22 @@ exports.init = function(io) {
       console.log('reserve received');
       if (tickets[data.y][data.x].state != 'Occupied'){
         tickets[data.y][data.x].state = 'Occupied';
+        tickets[data.y][data.x].owner = socket.username;
+        console.log(tickets[data.y][data.x]);
         // io.sockets.emit('seat_update', data, socket.id);
       }
       if (seats[data.y][data.x] != 2) {
         seats[data.y][data.x] = 2;
-        io.sockets.emit('seat_update', data, socket.id);
+        io.sockets.emit('seat update', data, socket.id);
       }
-      console.log(tickets[0]);
+      // console.log(tickets[0]);
     });
     // seat update emit this with s with objects
 
-    socket.on('get seats init', function(){
-      // socket.username = username;
-      console.log('get seats init received');
+    socket.on('get seats init', function(data){
+      // console.log(data);
+      socket.username = data.username;
+      // console.log("socket username set" + socket.username);
       socket.emit('receive seats init', seats);
     })
 
@@ -104,21 +117,44 @@ exports.init = function(io) {
     socket.on('cancel', function (data) {
       if (tickets[data.y][data.x].state != 'Empty'){
         tickets[data.y][data.x].state = 'Empty';
+        tickets[data.y][data.x].owner = null;
         // io.sockets.emit('seat_update', data, socket.id);
       }
       if (seats[data.y][data.x] != 1) {
         seats[data.y][data.x] = 1;
-        io.sockets.emit('seat_cancel_update', data);
+        io.sockets.emit('seat cancel update', data);
       }
     });
 
-    console.log(socket.id);
-    console.log("seats map")
-    // var singleSeat = new Seat()
-    // singleSeat.state = 'Present';
-    // singleSeat.price = 50
-    // s[0][0] = singleSeat
-    // console.log(singleSeat)
-    console.log(seats)
+    socket.on('buy tickets', function(data){
+
+      for(var i=0; i< tickets.length; i++){
+        for(var j=0; j< tickets[0].length; j++){
+          // console.log(i,j);
+          // console.log(tickets[0]);
+          if(tickets[i][j]){
+          console.log(tickets[i][j].owner);}
+          if(tickets[i][j] && tickets[i][j].owner == data.username){
+            tickets[i][j].state = 'Reserved';
+            // seats[i][j] = 
+            console.log('buy tickets called');
+            socket.emit('block seat map', {
+              y: i,
+              x: j,
+              sid: socket.id
+            });
+          }
+        }
+      }
+    });
+
+    // console.log(socket.id);
+    // console.log("seats map")
+    // // var singleSeat = new Seat()
+    // // singleSeat.state = 'Present';
+    // // singleSeat.price = 50
+    // // s[0][0] = singleSeat
+    // // console.log(singleSeat)
+    // console.log(seats)
   });
 }

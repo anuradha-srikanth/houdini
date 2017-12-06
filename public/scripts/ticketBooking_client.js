@@ -2,7 +2,7 @@ var rows,cols;
 var selectCount = 1;
 var socket = io.connect('/');
 
-socket.on('seat_update', function (data, sid) {
+socket.on('seat update', function (data, sid) {
   var target = $('div[data-x = ' + data.x + '][data-y = ' + data.y + ']');
     target.removeClass('enable'); // Remove class attributes for seat.
     target.addClass('disable');   // Add class attributes for seat.
@@ -17,23 +17,23 @@ socket.on('seat_update', function (data, sid) {
     }
   });
 
-socket.on('seatUpdateBatch', function (data, sid) {
+socket.on('seat update batch', function (data, sid) {
   data.forEach(function (xyArray) {
     var target = $('div[data-x = ' + xyArray[0] + '][data-y = ' + xyArray[1] + ']');
-  target.removeClass('enable'); // Remove class attributes for seat.
-  target.addClass('disable');   // Add class attributes for seat.
-  target.off('click');          // Remove onclick listener.
+    target.removeClass('enable'); // Remove class attributes for seat.
+    target.addClass('disable');   // Add class attributes for seat.
+    target.off('click');          // Remove onclick listener.
 
-  if (sid == socket.id) {
-    target.removeClass('disable'); 
-    target.addClass('mySeat').on('click', onClickSeatCancel); 
-  }
+    if (sid == socket.id) {
+      target.removeClass('disable'); 
+      target.addClass('mySeat').on('click', onClickSeatCancel); 
+    }
+  });
 });
-});
 
-socket.on('reserveReject', function () { alert('Seats rejected.'); })
+socket.on('reserve reject', function () { alert('Seats rejected.'); })
 
-socket.on('seat_cancel_update', function (data, sid) {
+socket.on('seat cancel update', function (data, sid) {
   var target = $('div[data-x = ' + data.x + '][data-y = ' + data.y + ']');
   target.removeClass('disable');
   target.removeClass('mySeat');
@@ -73,6 +73,7 @@ socket.on('receive seats init', function(data){
   $.each(seats, function (indexY, line) {
     var $line = $('<div></div>').addClass('line');
     $.each(line, function (indexX, seat) {
+      console.log(indexX, indexY);
       var output = $('<div></div>', {
         'class': 'seat',
         'data-x': indexX,
@@ -88,6 +89,35 @@ socket.on('receive seats init', function(data){
 
 });
 
+var buyTickets = function() {
+  console.log('buyTickets function is called');
+  $.getJSON('/username', function (data) {
+    console.log(data);
+    socket.emit('buy tickets', {
+      username: data.username
+    });
+  });
+}
+
+socket.on('block seat map', function (data) {
+  console.log('block seat map emitted');
+  console.log(data);
+  var target = $('div[data-x = ' + data.x + '][data-y = ' + data.y + ']');
+    target.removeClass('disable'); // Remove class attributes for seat.
+    target.removeClass('mySeat'); // Remove class attributes for seat.
+    target.addClass('reserve');   // Add class attributes for seat.
+    target.off('click');          // Remove onclick listener.
+
+    // If I'm the one who requested,
+    // Remove 'diabled' class from seat.
+    // Add 'mySeat' class properties and add click listener for canceling.
+    if (data.sid == socket.id) {
+      target.removeClass('reserve'); 
+      target.addClass('myReserved');
+      // .on('click', onClickSeatCancel); 
+    }
+  });
+
 $(document).ready(function () {
   $.getJSON('/username', function (data) {
     console.log(data);
@@ -95,7 +125,6 @@ $(document).ready(function () {
       username: data.username
     });
   });
-
 });
 
 
