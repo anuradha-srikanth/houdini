@@ -7,6 +7,18 @@ exports.init = function(app, passport) {
         res.render('index.ejs'); // load the index.ejs file
     });
 
+    app.get("/movie", isLoggedIn, function (req, res) {
+      res.render('movie.ejs', {username: req.user.username});
+  });
+
+    app.get("/cart", isLoggedIn, function (req, res) {
+      res.render('cart.ejs',    
+        {
+            username: req.user.username,   
+            tickets: req.user.getTickets()
+        });
+  });
+
     // =====================================
     // LOGIN ===============================
     // =====================================
@@ -86,5 +98,5 @@ function isLoggedIn(req, res, next) {
         return next();
 
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    res.redirect('/login');
 }

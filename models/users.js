@@ -48,7 +48,11 @@ User.methods.validPassword = function( pwd ) {
 
 User.methods.getTickets = function(){
   return this.tickets
-}
+}; 
+
+// User.methods.fromUsername = function(){
+//   return this.
+// };
 User.plugin(passportLocalMongoose);
 module.exports = mongoose.model('User', User);
 

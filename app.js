@@ -102,13 +102,17 @@ db.once('open', function (callback) {
 
 
 // Main Page Access.
-app.get("/movie", function (req, res) {
-    res.render('movie.ejs', {username: req.user.username});
-    // fs.readFile('public/movie.html', function (error, data) {
-    //     if (error) log("Error:", error);
-    //     else       res.send(data.toString());
-    // });
-});
+// app.get("/movie", isLoggedIn, function (req, res) {
+//     // if (req.user){
+//       res.render('movie.ejs', {username: req.user.username});
+//     // }else{
+//     //   res.render('login.ejs');
+//     // }
+//     // fs.readFile('public/movie.html', function (error, data) {
+//     //     if (error) log("Error:", error);
+//     //     else       res.send(data.toString());
+//     // });
+// });
 
 app.get("/username", function (req, res) {
   res.send(req.user);

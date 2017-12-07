@@ -1,0 +1,58 @@
+<% include layout.ejs %>
+
+<!-- <h3 class="ui center aligned header">Grid Container</h3>
+<div class="ui three column grid container">
+  <div class="column">
+    <div class="ui segment">Content</div>
+  </div>
+  <div class="column">
+    <div class="ui segment">Content</div>
+  </div>
+  <div class="column">
+    <div class="ui segment">Content</div>
+  </div>
+  <div class="column">
+    <div class="ui segment">Content</div>
+  </div>
+  <div class="column">
+    <div class="ui segment">Content</div>
+  </div>
+  <div class="column">
+    <div class="ui segment">Content</div>
+  </div>
+</div> -->
+<div class="ui grid">
+
+
+    <div class="ten wide column centered">
+        <table class="ui unstackable table">
+          <thead>
+            <tr><th>Quantity</th>
+                <th>Name</th>
+                <th class="right aligned">Price</th>
+            </tr></thead>
+            <tbody>
+                <% for (var i=0; i< tickets.length; i++) { %>
+                <tr>
+                  <td>1</td>
+                  <td>Ticket</td>
+                  <td class="right aligned"> tickets[i] </td>
+                </tr>
+                <% } %>
+<!--               <tr>
+                  <td>Jamie</td>
+                  <td>Approved</td>
+                  <td class="right aligned"></td>
+              </tr>
+              <tr>
+                  <td>Jill</td>
+                  <td>Denied</td>
+                  <td class="right aligned"></td>
+              </tr> -->
+          </tbody>
+      </table>
+  </div>
+</div>
+
+
+<% include footer.ejs %>

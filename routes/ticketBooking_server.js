@@ -101,7 +101,6 @@ exports.init = function(io) {
         seats[data.y][data.x] = 2;
         io.sockets.emit('seat update', data, socket.id);
       }
-      // console.log(tickets[0]);
     });
     // seat update emit this with s with objects
 
@@ -130,8 +129,6 @@ exports.init = function(io) {
 
       for(var i=0; i< tickets.length; i++){
         for(var j=0; j< tickets[0].length; j++){
-          // console.log(i,j);
-          // console.log(tickets[0]);
           if(tickets[i][j]){
           console.log(tickets[i][j].owner);}
           if(tickets[i][j] && tickets[i][j].owner == data.username){
@@ -139,7 +136,6 @@ exports.init = function(io) {
             tickets[i][j].save(function(err){
               if (err) { return err;}
             })
-            // seats[i][j] = 
             console.log('buy tickets called');
             socket.emit('block seat map', {
               y: i,
@@ -150,14 +146,5 @@ exports.init = function(io) {
         }
       }
     });
-
-    // console.log(socket.id);
-    // console.log("seats map")
-    // // var singleSeat = new Seat()
-    // // singleSeat.state = 'Present';
-    // // singleSeat.price = 50
-    // // s[0][0] = singleSeat
-    // // console.log(singleSeat)
-    // console.log(seats)
   });
 }

@@ -31,7 +31,9 @@ socket.on('seat update batch', function (data, sid) {
   });
 });
 
-socket.on('reserve reject', function () { alert('Seats rejected.'); })
+socket.on('reserve reject', function () {
+  alert('Seats rejected.'); 
+});
 
 socket.on('seat cancel update', function (data, sid) {
   var target = $('div[data-x = ' + data.x + '][data-y = ' + data.y + ']');
@@ -84,7 +86,8 @@ socket.on('receive seats init', function(data){
       else if (seat == 2)
         output.addClass('disable');
     });
-    $line.appendTo('body');
+    // $line.appendTo('body');
+    $('.pusher').append($line);
   }); 
 
 });
