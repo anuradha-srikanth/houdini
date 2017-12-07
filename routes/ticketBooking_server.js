@@ -1,3 +1,4 @@
+var User = require('../models/users');
 
 exports.init = function(io) {
   var Seat = require('../models/seats');
@@ -126,25 +127,43 @@ exports.init = function(io) {
     });
 
     socket.on('buy tickets', function(data){
-
-      for(var i=0; i< tickets.length; i++){
-        for(var j=0; j< tickets[0].length; j++){
-          if(tickets[i][j]){
-          console.log(tickets[i][j].owner);}
+      // var currUser = null
+      User.findOne({
+        'username' : data.username,
+      }, function (err, user) {
+        if(err){
+          console.log("ERROR");
+          return handleError(err);
+        }
+        console.log(user);
+        // currUser = user;
+        for(var i=0; i< tickets.length; i++){
+          for(var j=0; j< tickets[0].length; j++){
+          // if(tickets[i][j]){
+          //   console.log(tickets[i][j].owner);}
           if(tickets[i][j] && tickets[i][j].owner == data.username){
             tickets[i][j].state = 'Reserved';
             tickets[i][j].save(function(err){
               if (err) { return err;}
-            })
-            console.log('buy tickets called');
-            socket.emit('block seat map', {
-              y: i,
-              x: j,
-              sid: socket.id
             });
+              // currUser.tickets
+              console.log('buy tickets called');
+              socket.emit('block seat map', {
+                y: i,
+                x: j,
+                sid: socket.id
+              });
+              user.tickets.push(tickets[i][j]);
+              console.log(user.tickets);
+            }
           }
         }
-      }
+        user.update(function(err){
+          if (err) {return err; }
+        });
+      });
+
+
     });
   });
 }
