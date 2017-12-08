@@ -33,40 +33,66 @@
               prompt : 'Please enter your username'
             },
             {
-              type   : 'length[4]',
+              type   : 'length[5]',
               prompt : 'Please enter a valid username'
             }]
           },
           password: {
             identifier  : 'password',
-            rules: [{
+            rules: [
+            {
               type   : 'empty',
               prompt : 'Please enter your password'
             },
             {
-              type   : 'length[4]',
-              prompt : 'Your password must be at least 4 characters'
+              type   : 'length[6]',
+              prompt : 'Your password must be at least 6 characters'
             }]
           }
+        },
+        password_confirmation: {
+          identifier  : 'password',
+          rules: [
+          {
+            type   : 'empty',
+            prompt : 'Please confirm your password'
+          },
+          {
+            type   : 'length[6]',
+            prompt : 'Your password must be at least 6 characters'
+          }]
         }
-      });
+      }
+    });
     });
   </script>
 
 </head>
 <body>
 
-
   <div class="ui middle aligned center aligned grid">
     <div class="column">
       <h2 class="ui teal image header">
         <img src="assets/images/logo.png" class="image">
         <div class="content">
-          Log in to your account
+          Sign Up for a New Account
         </div>
       </h2>
-      <form class="ui large form" action="/login" method="post">
+      <form class="ui large form">
         <div class="ui stacked segment">
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="text" name="firstname" placeholder="First Name">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="text" name="lastname" placeholder="Last Name">
+            </div>
+          </div>
+
           <div class="field">
             <div class="ui left icon input">
               <i class="user icon"></i>
@@ -79,16 +105,22 @@
               <input type="password" name="password" placeholder="Password">
             </div>
           </div>
-          <div class="ui fluid large teal submit button">Login</div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input type="password" name="password_confirmation" placeholder="Password Confirmation">
+            </div>
+          </div>
+          <div class="ui fluid large teal submit button">Sign Up</div>
         </div>
 
         <div class="ui error message"></div>
 
       </form>
 
-      <div class="ui message">
-        New to us? <a href="/signup">Sign Up</a>
-      </div>
+<!--       <div class="ui message">
+        New to us? <a href="#">Sign Up</a>
+      </div> -->
     </div>
   </div>
 

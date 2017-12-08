@@ -1,61 +1,35 @@
 <% include layout.ejs %>
-
-<!-- <h3 class="ui center aligned header">Grid Container</h3>
-<div class="ui three column grid container">
-  <div class="column">
-    <div class="ui segment">Content</div>
-  </div>
-  <div class="column">
-    <div class="ui segment">Content</div>
-  </div>
-  <div class="column">
-    <div class="ui segment">Content</div>
-  </div>
-  <div class="column">
-    <div class="ui segment">Content</div>
-  </div>
-  <div class="column">
-    <div class="ui segment">Content</div>
-  </div>
-  <div class="column">
-    <div class="ui segment">Content</div>
-  </div>
-</div> -->
+<br>
+<!-- <br> -->
+<h2 class="ui center aligned icon header">
+  <i class="circular add to cart icon"></i>
+  My Cart
+</h2>
 
 <br> 
 <div class="ui grid">
 
 
-    <div class="ten wide column centered">
-        <table class="ui unstackable table">
-          <thead>
-            <tr><th>Quantity</th>
-                <th>Name</th>
-                <th class="right aligned">Price</th>
-            </tr></thead>
-            <tbody>
-                <% for (var i=0; i< tickets.length; i++) { %>
-                <%= console.log(tickets[i]) %>
-                <tr>
-                  <td>1</td>
-                  <td>Ticket</td>
-                  <td class="right aligned"> <%= tickets[i].state %> </td>
-                </tr>
-                <% } %>
-<!--               <tr>
-                  <td>Jamie</td>
-                  <td>Approved</td>
-                  <td class="right aligned"></td>
-              </tr>
-              <tr>
-                  <td>Jill</td>
-                  <td>Denied</td>
-                  <td class="right aligned"></td>
-              </tr> -->
-          </tbody>
+  <div class="ten wide column centered">
+    <table class="ui unstackable table">
+      <thead>
+        <tr><th>Quantity</th>
+          <th>Name</th>
+          <th class="right aligned">Price</th>
+        </tr></thead>
+        <tbody>
+          <% for (var i=0; i< tickets.length; i++) { %>
+          <%= console.log(tickets[i]) %>
+          <tr>
+            <td>1</td>
+            <td>Ticket</td>
+            <td class="right aligned"> <%= tickets[i].price %> </td>
+          </tr>
+          <% } %>
+        </tbody>
       </table>
+    </div>
   </div>
-</div>
 
 
-<% include footer.ejs %>
+  <% include footer.ejs %>

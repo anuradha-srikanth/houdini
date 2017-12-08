@@ -1,41 +1,79 @@
 
 <% include layout.ejs %>
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="./scripts/ticketBooking_client.js"></script>
 <script>
-$('.ui.sidebar')
-.sidebar('toggle')
-;
-</script>
+  $('.ui.sidebar')
+  .sidebar('toggle')
+  ;
 
-<div class="ui visible sidebar">
-Middle
-</div>
+  function seeCart(){
+    window.location.href = '/cart';
+  }
+
+</script>
+<script>
+  $(document)
+  .ready(function() {
+
+      // fix menu when passed
+      // $('.masthead')
+      // .visibility({
+      //   once: false,
+      //   onBottomPassed: function() {
+      //     $('.fixed.menu').transition('fade in');
+      //   },
+      //   onBottomPassedReverse: function() {
+      //     $('.fixed.menu').transition('fade out');
+      //   }
+      // })
+      // ;
+
+      // create sidebar and attach to menu open
+      // $('.ui.sidebar')
+      // .sidebar('attach events', '.toc.item')
+      // ;
+
+    })
+  ;
+</script>
+<!-- <div class="ui visible sidebar">
+</div> -->
 <div class="pusher">
 
-<button type="button" class="ui button" onclick="buyTickets()">Buy Tickets</button>
+<!-- <button type="button" class="ui button" onclick="buyTickets()">Buy Tickets</button>
+-->
+<br>
+<!-- <br> -->
+<h2 class="ui center aligned icon header">
+  <i class="circular users icon"></i>
+  Book Seats
+</h2>
+<!-- 
+  <h3 class="ui center aligned header">Book Seats</h3> -->
+  <div class="ui one column grid container">
+    <div class="column">
+      <div class="ui segment here"></div>
+    </div>
+<!--   <div class="column">
+    <div class="ui segment">Content</div>
+  </div> -->
+<!--   <div class="column">
+    <div class="ui segment">Content</div>
+  </div>
+  <div class="column">
+    <div class="ui segment">Content</div>
+  </div>
+  <div class="column">
+    <div class="ui segment">Content</div>
+  </div>
+  <div class="column">
+    <div class="ui segment">Content</div>
+  </div> -->
+  <button type="button" class="ui button" onclick="buyTickets()">Buy Tickets</button>
 
-
-<h3 class="ui center aligned header">Grid Container</h3>
-<div class="ui three column grid container">
-  <div class="column">
-    <div class="ui segment">Content</div>
-  </div>
-  <div class="column">
-    <div class="ui segment">Content</div>
-  </div>
-  <div class="column">
-    <div class="ui segment">Content</div>
-  </div>
-  <div class="column">
-    <div class="ui segment">Content</div>
-  </div>
-  <div class="column">
-    <div class="ui segment">Content</div>
-  </div>
-  <div class="column">
-    <div class="ui segment">Content</div>
-  </div>
+  <button type="button" class="ui button" onclick="seeCart()">See my cart</button>
 </div>
 
 </div>

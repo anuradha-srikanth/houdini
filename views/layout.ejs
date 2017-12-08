@@ -1,41 +1,72 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Movie Theater</title>
-<style>
-    .line { overflow: hidden; }
-    .seat {
-    margin: 2px;
-    float: left;
-    width: 30px;
-    height: 30px;
-    border-radius: 3px;
-    }
-    .enable { background: grey; }
-    .enable:hover { background: black; }
-    .disable { background: red; }
-    .reserve { background: black; }
-    .myReserved { background: pink; }
-    .mySeat { background: green; }
-    .mySeat:hover { background: brown; }
-</style>
+    <meta charset="UTF-8">
+    <title>Movie Theater</title>
+    <style>
+        .line { overflow: hidden; }
+        .seat {
+            margin: 2px;
+            float: left;
+            width: 30px;
+            height: 30px;
+            border-radius: 3px;
+        }
+        .enable { background: grey; }
+        .enable:hover { background: #FFB81C; }
+        .disable { background: red; }
+        .reserve { background: black; }
+        .myReserved { background: black; }
+        .mySeat { background: green; }
+        .mySeat:hover { background: brown; }
+    </style>
 
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.css">
 
-<script
-src="https://code.jquery.com/jquery-3.1.1.min.js"
-integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.js"></script>
 
-<script src="./scripts/application.js"> </script>
+    <script src="./scripts/application.js"> </script>
+    <script>
+
+        function seeCart(){
+            window.location.href = '/cart';
+        }
+
+        function seeMovie(){
+            window.location.href = '/movie';
+        }
+    </script>
 </head>
 
 <body>
+
+    <!-- Following Menu -->
+    <div class="ui large top fixed hidden menu">
+      <div class="ui container">
+        <a class="item">Home</a>
+        <a class="item" onclick="seeMovie()">Movie</a>
+        <a class="item" onclick="seeCart()">Cart</a>
+        <div class="right menu">
+            <div class="item">
+                <p> Welcome,  <%= username %> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<br>
+<br>
+<!-- Sidebar Menu -->
+<!-- <div class="ui vertical inverted sidebar menu">
+  <a class="active item">Home</a>
+  <a class="item">Work</a>
+  <a class="item">Company</a>
+  <a class="item">Careers</a>
+  <a class="item">Login</a>
+  <a class="item">Signup</a>
+</div> -->
 

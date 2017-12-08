@@ -127,24 +127,18 @@ exports.init = function(io) {
     });
 
     socket.on('buy tickets', function(data){
-      // var currUser = null
-      User.findOne({
-        'username' : data.username,
-      }, function (err, user) {
-        if(err){
-          console.log("ERROR");
-          return handleError(err);
-        }
-        console.log(user);
-        // currUser = user;
-        addTickets = [];
-        for(var i=0; i< tickets.length; i++){
-          for(var j=0; j< tickets[0].length; j++){
-          // if(tickets[i][j]){
-          //   console.log(tickets[i][j].owner);}
+     User.findOne({
+      'username' : data.username,
+    }, function (err, user) {
+      if(err){
+        console.log("ERROR");
+        return handleError(err);
+      }
+      addTickets = [];
+      for(var i=0; i< tickets.length; i++){
+        for(var j=0; j< tickets[0].length; j++){
           if(tickets[i][j] && tickets[i][j].owner == data.username){
             tickets[i][j].state = 'Reserved';
-            console.log("this should be an object " + tickets[i][j]);
             tickets[i][j].save(function(err){
               if (err) { return err;}
             });
@@ -154,23 +148,16 @@ exports.init = function(io) {
               sid: socket.id
             });
             addTickets.push(tickets[i][j]);
-            }
           }
         }
-        User.update(
-        {
-          'username': data.username
-        },
-        {
-          'tickets': addTickets
-        }, function(err){
+      }
+      User.update({ 'username': data.username},
+        { 'tickets': addTickets }, 
+        function(err){
           console.log(err);
-        }
-        );
-        console.log("getTickets function " + user.getTickets());
-      });
-
-
+        });
     });
+
+   });
   });
 }

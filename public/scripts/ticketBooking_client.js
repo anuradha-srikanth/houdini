@@ -87,7 +87,7 @@ socket.on('receive seats init', function(data){
         output.addClass('disable');
     });
     // $line.appendTo('body');
-    $('.pusher').append($line);
+    $('.here').append($line);
   }); 
 
 });

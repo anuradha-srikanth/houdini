@@ -3,9 +3,13 @@ exports.init = function(app, passport) {
     // =====================================
     // HOME PAGE (with login links) ========
     // =====================================
-    app.get('/', function(req, res) {
-        res.render('index.ejs'); // load the index.ejs file
-    });
+    // app.get('/', function(req, res) {
+    //     res.render('movie.ejs'); // load the index.ejs file
+    // });
+
+        app.get("/", isLoggedIn, function (req, res) {
+      res.render('movie.ejs', {username: req.user.username});
+  });
 
     app.get("/movie", isLoggedIn, function (req, res) {
       res.render('movie.ejs', {username: req.user.username});
