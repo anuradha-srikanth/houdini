@@ -11,13 +11,29 @@ exports.init = function(app, passport) {
       res.render('movie.ejs', {username: req.user.username});
   });
 
+    var Seat = require('../models/seats');
     app.get("/cart", isLoggedIn, function (req, res) {
-      res.render('cart.ejs',    
-        {
-            username: req.user.username,   
-            tickets: req.user.getTickets()
+        // User.findOne({ 'username' : req.user.username}).
+        // populate('tickets').
+        // exec(function (err, user) {
+        // User.find({ 'username' : req.user.username }
+        //     if (err) return handleError(err);
+        //     console.log(user);
+        //     res.render('cart.ejs',    
+        //     {
+        //         username: req.user.username,   
+        //         tickets: user.tickets
+        //     });
+        // });
+        Seat.find({ 'owner' : req.user.username }).
+        exec(function( err, seats){ 
+            res.render('cart.ejs',    
+            {
+                username: req.user.username,   
+                tickets: seats
+            });
         });
-  });
+    });
 
     // =====================================
     // LOGIN ===============================

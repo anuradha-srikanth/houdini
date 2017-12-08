@@ -137,30 +137,37 @@ exports.init = function(io) {
         }
         console.log(user);
         // currUser = user;
+        addTickets = [];
         for(var i=0; i< tickets.length; i++){
           for(var j=0; j< tickets[0].length; j++){
           // if(tickets[i][j]){
           //   console.log(tickets[i][j].owner);}
           if(tickets[i][j] && tickets[i][j].owner == data.username){
             tickets[i][j].state = 'Reserved';
+            console.log("this should be an object " + tickets[i][j]);
             tickets[i][j].save(function(err){
               if (err) { return err;}
             });
-              // currUser.tickets
-              console.log('buy tickets called');
-              socket.emit('block seat map', {
-                y: i,
-                x: j,
-                sid: socket.id
-              });
-              user.tickets.push(tickets[i][j]);
-              console.log(user.tickets);
+            socket.emit('block seat map', {
+              y: i,
+              x: j,
+              sid: socket.id
+            });
+            addTickets.push(tickets[i][j]);
             }
           }
         }
-        user.update(function(err){
-          if (err) {return err; }
-        });
+        User.update(
+        {
+          'username': data.username
+        },
+        {
+          'tickets': addTickets
+        }, function(err){
+          console.log(err);
+        }
+        );
+        console.log("getTickets function " + user.getTickets());
       });
 
 

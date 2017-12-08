@@ -47,6 +47,7 @@ User.methods.validPassword = function( pwd ) {
 };
 
 User.methods.getTickets = function(){
+  // User.
   return this.tickets
 }; 
 
