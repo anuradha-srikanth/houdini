@@ -60,7 +60,7 @@ exports.init = function(app, passport) {
 
     // process the login form
     app.post('/login', 
-        passport.authenticate('local', { 
+        passport.authenticate('local-login', { 
             successRedirect: '/',
             failureRedirect: '/login', 
             failureFlash: "Invalid username or password" ,
@@ -88,7 +88,13 @@ exports.init = function(app, passport) {
     });
 
     // process the signup form
-    // app.post('/signup', do all our passport stuff here);
+    app.post('/signup', 
+        passport.authenticate('local-signup', { 
+            successRedirect: '/login',
+            failureRedirect: '/signup', 
+            // failureFlash: "Invalid username or password" ,
+            // successFlash: "Welcome!"
+        }));
 
     // =====================================
     // PROFILE SECTION =====================
