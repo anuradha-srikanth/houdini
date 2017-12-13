@@ -39,6 +39,11 @@
         function seeMovie(){
             window.location.href = '/movie';
         }
+
+        function logout(){
+            window.location.href = '/logout';
+        }
+
     </script>
 </head>
 
@@ -53,8 +58,9 @@
         <div class="right menu">
             <div class="item">
                 <p> Welcome,  <%= username %> </p>
-                </div>
             </div>
+        </div>
+        <a class="item" onclick="logout()">Logout</a>
         </div>
     </div>
 

@@ -1,6 +1,14 @@
 
 <% include layout.ejs %>
 
+<!-- <style>
+.no-wrap{
+  white-space: nowrap;
+  min-width: 300px;
+  
+}
+</style> -->
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="./scripts/ticketBooking_client.js"></script>
 <script>
@@ -31,7 +39,7 @@
 </h2>
 <!-- 
   <h3 class="ui center aligned header">Book Seats</h3> -->
-  <div class="ui one column grid container">
+  <div class="ui one column grid container no-wrap">
     <div class="column">
       <div class="ui segment here"></div>
     </div>
