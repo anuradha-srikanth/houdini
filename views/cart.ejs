@@ -1,4 +1,29 @@
 <% include layout.ejs %>
+<script src="/socket.io/socket.io.js"></script>
+<script src="./scripts/ticketBooking_client.js"></script>
+<script>
+  // var Seat = require('../models/seats');
+
+  // function delTickets(ticket_id){
+  //   console.log("del tickets called");
+  //   Seat.remove({ 
+  //     'id' : ticket_id,
+  //   },function(err){
+  //     if (err) return err
+  //   })
+  // }
+
+
+  function delTickets(ticket_id) {
+    console.log(ticket_id);
+    socket.emit('delete tickets', { 
+      ticket_id: ticket_id
+    });
+  }
+
+
+</script>
+
 <br>
 <!-- <br> -->
 <h2 class="ui center aligned icon header">
@@ -25,16 +50,16 @@
             <td>1</td>
             <td>Ticket</td>
             <td class="right aligned"> <%= tickets[i].price %> </td>
-            
+
             <td>  
-             <button type="button" class="ui button" onclick="buyTickets()">Delete</button> 
-             </td>
-          </tr>
-          <% } %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+             <button type="button" class="ui button" value=<%= tickets[i].id %> onclick="delTickets( this.value )">Delete</button> 
+           </td>
+         </tr>
+         <% } %>
+       </tbody>
+     </table>
+   </div>
+ </div>
 
 
-  <% include footer.ejs %>
+ <% include footer.ejs %>

@@ -159,5 +159,14 @@ exports.init = function(io) {
     });
 
    });
+
+    socket.on('delete tickets', function(ticket_id){
+      console.log("del tickets called");
+      Seat.deleteOne({ 
+        '_id' : ticket_id,
+      },function(err){
+        if (err) return err
+      });
+    });
   });
 }
