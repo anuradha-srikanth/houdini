@@ -3,6 +3,8 @@ var User = require('../models/users');
 exports.init = function(io) {
   var Seat = require('../models/seats');
 
+
+// Initializing tickets and seats
   var tickets = [];
   var seats = [];
   

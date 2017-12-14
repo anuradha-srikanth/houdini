@@ -17,18 +17,7 @@ exports.init = function(app, passport) {
 
     var Seat = require('../models/seats');
     app.get("/cart", isLoggedIn, function (req, res) {
-        // User.findOne({ 'username' : req.user.username}).
-        // populate('tickets').
-        // exec(function (err, user) {
-        // User.find({ 'username' : req.user.username }
-        //     if (err) return handleError(err);
-        //     console.log(user);
-        //     res.render('cart.ejs',    
-        //     {
-        //         username: req.user.username,   
-        //         tickets: user.tickets
-        //     });
-        // });
+
         Seat.find({ 'owner' : req.user.username }).
         exec(function( err, seats){ 
             res.render('cart.ejs',    
@@ -47,16 +36,6 @@ exports.init = function(app, passport) {
         // render the page and pass in any flash data if it exists
         res.render('login.ejs', { message: req.flash('loginMessage') }); 
     });
-
-
-    // app.post('/login',
-    //   passport.authenticate('local'),
-    //   function(req, res) {
-    //     // If this function gets called, authentication was successful.
-    //     // `req.user` contains the authenticated user.
-    //     console.log("signed in");
-    //     res.redirect('/users/' + req.user.username);
-    // });
 
     // process the login form
     app.post('/login', 

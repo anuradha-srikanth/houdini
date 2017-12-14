@@ -29,14 +29,10 @@ app.use(express.static(__dirname + '/public'));
 var generalRoutes = require('./routes/routes.js')
 var users = require('./routes/user.js')
 
-// Route from main
-// app.use('/login', generalRoutes)
-// app.use('/users', users);
-
 app.use(cookieParser());
 app.use(bodyParser());
 
-// Express Session
+// Express Session information
 app.use(session({ 
   secret: 'mySecretKey',
   saveUninitialized: true,
@@ -49,9 +45,6 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-
-// app.use(session({ secret: 'mySecretKey' })); // session secret
-// app.use(flash()); // use connect-flash for flash messages stored in session
 
 var User = require('./models/users');
 passport.use('local-login', new LocalStrategy(
@@ -72,10 +65,13 @@ passport.use('local-login', new LocalStrategy(
 
 
 passport.use('local-signup', new LocalStrategy({
-        // by default, local strategy uses username and password, we will override with email
+        // by default, local strategy uses username and password, 
+        // we will override with email
         usernameField : 'username',
         passwordField : 'password',
-        passReqToCallback : true // allows us to pass back the entire request to the callback
+        passReqToCallback : true 
+        // allows us to pass back the entire 
+        //request to the callback
       },
       function(req, username, password, done) {
 
@@ -102,6 +98,8 @@ passport.use('local-signup', new LocalStrategy({
                 // set the user's local credentials
                 newUser.local.username    = username;
                 newUser.local.password    =  password;
+                newUser.username    = username;
+                newUser.password    =  password;
                 // newUser.generateHash(password);
 
                 // save the user
@@ -130,11 +128,6 @@ passport.deserializeUser(function(id, done) {
 });
 
 
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
-
-
-
 //Connect the database
 mongoose.connect(mongoDB, {
   useMongoClient: true
@@ -148,20 +141,6 @@ db.once('open', function (callback) {
   users.init(app);
     // require('./routes/user.js').init(app);
   });
-
-
-// Main Page Access.
-// app.get("/movie", isLoggedIn, function (req, res) {
-//     // if (req.user){
-//       res.render('movie.ejs', {username: req.user.username});
-//     // }else{
-//     //   res.render('login.ejs');
-//     // }
-//     // fs.readFile('public/movie.html', function (error, data) {
-//     //     if (error) log("Error:", error);
-//     //     else       res.send(data.toString());
-//     // });
-// });
 
 app.get("/username", function (req, res) {
   res.send(req.user);
